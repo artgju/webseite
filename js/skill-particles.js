@@ -1,8 +1,9 @@
-// Skill Bar Particle Effects - Enhanced Version
+// Skill Bar Particle Effects - Performance Optimized
 class SkillParticles {
     constructor() {
-        this.particles = [];
         this.activeIntervals = new Map();
+        this.particlePools = new Map(); // Reuse DOM elements
+        this.maxParticlesPerBar = 15; // Limit per bar
         this.init();
     }
     
@@ -17,16 +18,17 @@ class SkillParticles {
                     this.stopParticlesForBar(entry.target);
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.3, rootMargin: '50px' });
         
         skillBars.forEach(bar => observer.observe(bar));
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => this.cleanup());
     }
     
     startParticlesForBar(bar) {
         // Stop any existing interval for this bar
         this.stopParticlesForBar(bar);
-        
-        const rect = bar.getBoundingClientRect();
         
         // Create particle container if not exists
         let container = bar.querySelector('.skill-particles');
@@ -46,15 +48,18 @@ class SkillParticles {
             
             bar.style.position = 'relative';
             bar.appendChild(container);
+            this.particlePools.set(container, []);
         }
         
-        // Generate particles periodically - subtle and professional
+        // Generate particles with performance throttling
         const interval = setInterval(() => {
             if (bar.offsetParent !== null) {
-                // Generate only 1 particle at a time
-                this.generateParticle(container, bar);
+                const pool = this.particlePools.get(container) || [];
+                if (pool.length < this.maxParticlesPerBar) {
+                    this.generateParticle(container, bar);
+                }
             }
-        }, 400); // Less frequent
+        }, 400);
         
         this.activeIntervals.set(bar, interval);
     }
@@ -65,14 +70,31 @@ class SkillParticles {
             clearInterval(interval);
             this.activeIntervals.delete(bar);
         }
+        
+        // Clean up particles
+        const container = bar.querySelector('.skill-particles');
+        if (container) {
+            const pool = this.particlePools.get(container);
+            if (pool) {
+                pool.forEach(p => {
+                    if (p.timeout) clearTimeout(p.timeout);
+                    if (p.element && p.element.parentNode) {
+                        p.element.remove();
+                    }
+                });
+                this.particlePools.set(container, []);
+            }
+        }
     }
     
     generateParticle(container, bar) {
         const particle = document.createElement('div');
-        const size = Math.random() * 3 + 2; // Smaller particles (2-5px)
+        const size = Math.random() * 3 + 2;
         const startX = Math.random() * 100;
-        const hue = Math.random() * 30 + 180; // Narrower blue-cyan range
+        const hue = Math.random() * 30 + 180;
+        const animationDuration = Math.random() * 1.5 + 1.5;
         
+        // Use transform for GPU acceleration
         particle.style.cssText = `
             position: absolute;
             width: ${size}px;
@@ -82,19 +104,48 @@ class SkillParticles {
             left: ${startX}%;
             top: 50%;
             box-shadow: 0 0 ${size * 1.5}px hsl(${hue}, 100%, 60%);
-            animation: particleFly${Math.floor(Math.random() * 3)} ${Math.random() * 1.5 + 1.5}s ease-out forwards;
+            animation: particleFly${Math.floor(Math.random() * 3)} ${animationDuration}s ease-out forwards;
             pointer-events: none;
             opacity: 0.7;
+            will-change: transform, opacity;
         `;
         
         container.appendChild(particle);
         
-        // Remove after animation
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.remove();
-            }
-        }, 3000);
+        // Track particle in pool
+        const pool = this.particlePools.get(container) || [];
+        const particleData = {
+            element: particle,
+            timeout: setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+                // Remove from pool
+                const index = pool.indexOf(particleData);
+                if (index > -1) {
+                    pool.splice(index, 1);
+                }
+            }, animationDuration * 1000)
+        };
+        pool.push(particleData);
+        this.particlePools.set(container, pool);
+    }
+    
+    cleanup() {
+        // Clear all intervals
+        this.activeIntervals.forEach(interval => clearInterval(interval));
+        this.activeIntervals.clear();
+        
+        // Clear all particles
+        this.particlePools.forEach(pool => {
+            pool.forEach(p => {
+                if (p.timeout) clearTimeout(p.timeout);
+                if (p.element && p.element.parentNode) {
+                    p.element.remove();
+                }
+            });
+        });
+        this.particlePools.clear();
     }
 }
 

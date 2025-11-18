@@ -23,6 +23,15 @@
     box-sizing: border-box;
 }
 
+/* Performance: Reduce repaints and enable GPU acceleration */
+*,
+*::before,
+*::after {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -32,6 +41,7 @@ body {
     line-height: 1.7;
     color: var(--dark-color);
     background-color: var(--white);
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
 }
 
 .container {
@@ -120,6 +130,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
 }
 
 .hero-background::before {
@@ -135,13 +146,14 @@ body {
         radial-gradient(circle at 50% 50%, rgba(45, 74, 142, 0.2) 0%, transparent 80%);
     background-size: cover;
     background-position: bottom;
+    z-index: 0;
 }
 
 .hero-content {
     max-width: 900px;
     padding: 2rem;
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
 .hero-title {
@@ -258,6 +270,7 @@ body {
     transition: var(--transition);
     text-align: center;
     border: 2px solid transparent;
+    will-change: transform;
 }
 
 .service-card:hover {
@@ -344,6 +357,7 @@ body {
     box-shadow: var(--shadow);
     transition: var(--transition);
     border: 2px solid transparent;
+    will-change: transform;
 }
 
 .project-card:hover {
@@ -910,101 +924,166 @@ body.dark-mode .skill-info {
 }
 
 /* ===================================
-   Skills Visualization
+   Skills Visualization - Hexagon Grid
    =================================== */
-.skills-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 3rem;
-    margin-top: 3rem;
-}
-
-.skill-category h3 {
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.skill-item {
-    margin-bottom: 2rem;
-}
-
-.skill-info {
+.hexagon-container {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding: 2rem 0;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.skill-percentage {
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-.skill-bar {
-    height: 10px;
-    background: rgba(0, 212, 255, 0.1);
-    border-radius: 10px;
-    overflow: visible;
+.hexagon {
+    width: 140px;
+    height: 160px;
     position: relative;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hexagonFadeIn 0.6s ease forwards;
 }
 
-.skill-progress {
+/* Staggered animation for each hexagon */
+.hexagon:nth-child(1) { animation-delay: 0.1s; }
+.hexagon:nth-child(2) { animation-delay: 0.2s; }
+.hexagon:nth-child(3) { animation-delay: 0.3s; }
+.hexagon:nth-child(4) { animation-delay: 0.4s; }
+.hexagon:nth-child(5) { animation-delay: 0.5s; }
+.hexagon:nth-child(6) { animation-delay: 0.6s; }
+.hexagon:nth-child(7) { animation-delay: 0.7s; }
+.hexagon:nth-child(8) { animation-delay: 0.8s; }
+.hexagon:nth-child(9) { animation-delay: 0.9s; }
+.hexagon:nth-child(10) { animation-delay: 1s; }
+.hexagon:nth-child(11) { animation-delay: 1.1s; }
+.hexagon:nth-child(12) { animation-delay: 1.2s; }
+
+@keyframes hexagonFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hexagon:hover {
+    transform: scale(1.1) translateY(-5px);
+}
+
+.hexagon-inner {
+    width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-cyan));
-    border-radius: 10px;
-    width: 0%;
-    transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-        0 0 15px rgba(0, 212, 255, 0.6),
-        0 0 30px rgba(0, 255, 255, 0.3);
     position: relative;
-    animation: skillPulse 2s ease-in-out infinite;
-    overflow: visible;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
 }
 
-.skill-progress::after {
-    content: '';
+.hexagon:hover .hexagon-inner {
+    transform: rotateY(180deg);
+}
+
+.hexagon-front,
+.hexagon-back {
     position: absolute;
-    right: -8px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    background: radial-gradient(circle, var(--accent-cyan), var(--primary-color));
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(20, 27, 61, 0.8));
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.hexagon-back {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(0, 212, 255, 0.9));
+    border-color: rgba(0, 255, 255, 0.6);
+    transform: rotateY(180deg);
+}
+
+.hexagon:hover .hexagon-front,
+.hexagon:hover .hexagon-back {
+    border-color: var(--accent-cyan);
     box-shadow: 
-        0 0 15px rgba(0, 255, 255, 0.8),
-        0 0 25px rgba(0, 212, 255, 0.5);
-    animation: skillGlow 1.5s ease-in-out infinite;
+        0 0 20px rgba(0, 212, 255, 0.5),
+        0 0 40px rgba(0, 255, 255, 0.3),
+        inset 0 0 20px rgba(0, 212, 255, 0.1);
 }
 
-@keyframes skillPulse {
+.tech-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.tech-detail {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Pulse animation for hexagons */
+@keyframes hexagonPulse {
     0%, 100% {
-        box-shadow: 
-            0 0 15px rgba(0, 212, 255, 0.6),
-            0 0 30px rgba(0, 255, 255, 0.3);
+        box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
     }
     50% {
         box-shadow: 
-            0 0 20px rgba(0, 212, 255, 0.8),
-            0 0 40px rgba(0, 255, 255, 0.4);
+            0 5px 25px rgba(0, 212, 255, 0.4),
+            0 0 30px rgba(0, 255, 255, 0.2);
     }
 }
 
-@keyframes skillGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 15px rgba(0, 255, 255, 0.8),
-            0 0 25px rgba(0, 212, 255, 0.5);
-        transform: translateY(-50%) scale(1);
+.hexagon-front {
+    animation: hexagonPulse 3s ease-in-out infinite;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .hexagon-front {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(26, 38, 84, 0.9));
+    border-color: rgba(0, 212, 255, 0.4);
+}
+
+body.dark-mode .hexagon-back {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 212, 255, 1));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hexagon {
+        width: 110px;
+        height: 125px;
     }
-    50% {
-        box-shadow: 
-            0 0 20px rgba(0, 255, 255, 1),
-            0 0 35px rgba(0, 212, 255, 0.6);
-        transform: translateY(-50%) scale(1.15);
+    
+    .hexagon-front,
+    .hexagon-back {
+        padding: 1rem;
+    }
+    
+    .tech-name {
+        font-size: 0.8rem;
+    }
+    
+    .tech-detail {
+        font-size: 0.75rem;
+    }
+    
+    .hexagon-container {
+        gap: 1rem;
     }
 }
 
@@ -1133,6 +1212,7 @@ body.dark-mode .skill-info {
     gap: 4rem;
     animation: scrollClients 30s linear infinite;
     width: fit-content;
+    will-change: transform; /* GPU acceleration */
 }
 
 .clients-track:hover {
@@ -1150,6 +1230,7 @@ body.dark-mode .skill-info {
     transition: var(--transition);
     min-width: 250px;
     flex-shrink: 0;
+    will-change: transform;
 }
 
 .client-logo:hover {
@@ -1189,10 +1270,10 @@ body.dark-mode .client-logo {
 
 @keyframes scrollClients {
     0% {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0); /* Use translate3d for GPU */
     }
     100% {
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
     }
 }
 

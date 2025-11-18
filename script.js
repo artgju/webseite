@@ -1,4 +1,40 @@
 // ===================================
+// Security & Performance Utilities
+// ===================================
+
+// XSS Protection: Sanitize HTML input
+function sanitizeHTML(str) {
+    const temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+}
+
+// Debounce function for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Throttle function for scroll events
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// ===================================
 // Preloader
 // ===================================
 window.addEventListener('load', () => {
@@ -10,14 +46,16 @@ window.addEventListener('load', () => {
 });
 
 // ===================================
-// Scroll Progress Bar
+// Scroll Progress Bar - Throttled
 // ===================================
-window.addEventListener('scroll', () => {
+const updateScrollProgress = throttle(() => {
     const scrollProgress = document.getElementById('scrollProgress');
     const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (window.scrollY / windowHeight) * 100;
     scrollProgress.style.width = scrolled + '%';
-});
+}, 16); // ~60fps
+
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
 // ===================================
 // Theme Toggle (Dark/Light Mode)
@@ -26,16 +64,24 @@ const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('.theme-icon');
 const savedTheme = localStorage.getItem('theme');
 
-if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeIcon.textContent = '☀️';
+// Validate saved theme
+if (savedTheme === 'dark' || savedTheme === 'light') {
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+    }
 }
 
 themeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     const isDark = document.body.classList.contains('dark-mode');
     themeIcon.textContent = isDark ? '☀️' : '🌙';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    
+    try {
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    } catch (e) {
+        console.warn('LocalStorage not available');
+    }
 });
 
 // ===================================
@@ -63,13 +109,22 @@ if (mobileMenuToggle) {
 }
 
 // ===================================
-// Cookie Banner
+// Cookie Banner - with validation
 // ===================================
 const cookieBanner = document.getElementById('cookieBanner');
 const acceptCookies = document.getElementById('acceptCookies');
 const declineCookies = document.getElementById('declineCookies');
 
-const cookieConsent = localStorage.getItem('cookieConsent');
+let cookieConsent = null;
+try {
+    cookieConsent = localStorage.getItem('cookieConsent');
+    // Validate stored value
+    if (cookieConsent !== 'accepted' && cookieConsent !== 'declined') {
+        cookieConsent = null;
+    }
+} catch (e) {
+    console.warn('LocalStorage not available');
+}
 
 if (!cookieConsent) {
     setTimeout(() => {
@@ -78,41 +133,47 @@ if (!cookieConsent) {
 }
 
 acceptCookies.addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'accepted');
+    try {
+        localStorage.setItem('cookieConsent', 'accepted');
+    } catch (e) {
+        console.warn('Cannot save cookie consent');
+    }
     cookieBanner.classList.remove('show');
 });
 
 declineCookies.addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'declined');
+    try {
+        localStorage.setItem('cookieConsent', 'declined');
+    } catch (e) {
+        console.warn('Cannot save cookie consent');
+    }
     cookieBanner.classList.remove('show');
 });
 
 // ===================================
-// Skills Animation (repeatable on scroll)
+// Hexagon Hover Effects - Optimized
 // ===================================
-const animateSkills = () => {
-    const skillBars = document.querySelectorAll('.skill-progress');
+const initHexagons = () => {
+    const hexagons = document.querySelectorAll('.hexagon');
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const progress = entry.target.getAttribute('data-progress');
-            if (entry.isIntersecting) {
-                // Reset and animate
-                entry.target.style.width = '0%';
-                setTimeout(() => {
-                    entry.target.style.width = progress + '%';
-                }, 100);
-            } else {
-                // Reset when out of view
-                entry.target.style.width = '0%';
-            }
+    hexagons.forEach(hex => {
+        hex.addEventListener('mouseenter', function() {
+            // Subtle sound effect could be added here in future
+            this.style.zIndex = '10';
         });
-    }, { threshold: 0.3 });
-    
-    skillBars.forEach(bar => observer.observe(bar));
+        
+        hex.addEventListener('mouseleave', function() {
+            this.style.zIndex = '1';
+        });
+    });
 };
 
-animateSkills();
+// Initialize hexagons after DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHexagons);
+} else {
+    initHexagons();
+}
 
 // ===================================
 // Smooth scrolling for navigation links
@@ -130,11 +191,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar scroll effect
+// Navbar scroll effect - Throttled
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
 
-window.addEventListener('scroll', () => {
+const updateNavbar = throttle(() => {
     const currentScroll = window.pageYOffset;
     
     if (currentScroll <= 0) {
@@ -144,25 +205,36 @@ window.addEventListener('scroll', () => {
     }
     
     lastScroll = currentScroll;
-});
+}, 100);
 
-// Counter animation for experience numbers
+window.addEventListener('scroll', updateNavbar, { passive: true });
+
+// Counter animation for experience numbers - Optimized
 const counterAnimation = () => {
     const counters = document.querySelectorAll('.experience-number');
+    const observedCounters = new Set();
     
     const animateCounter = (counter) => {
+        // Prevent duplicate animations
+        if (observedCounters.has(counter)) return;
+        observedCounters.add(counter);
+        
         const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
+        if (isNaN(target) || target < 0 || target > 1000000) return; // Validation
+        
+        const duration = 2000;
+        const increment = target / (duration / 16);
         let current = 0;
+        let animationId;
         
         const updateCounter = () => {
             current += increment;
             if (current < target) {
                 counter.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
+                animationId = requestAnimationFrame(updateCounter);
             } else {
                 counter.textContent = target;
+                observedCounters.delete(counter);
             }
         };
         
@@ -178,15 +250,22 @@ const counterAnimation = () => {
                 animateCounter(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { 
+        threshold: 0.5,
+        rootMargin: '0px'
+    });
     
-    counters.forEach(counter => observer.observe(counter));
+    counters.forEach(counter => {
+        if (counter.getAttribute('data-target')) {
+            observer.observe(counter);
+        }
+    });
 };
 
 // Initialize counter animation
 counterAnimation();
 
-// Fade-in animation on scroll
+// Fade-in animation on scroll - Optimized
 const fadeInOnScroll = () => {
     const elements = document.querySelectorAll('.service-card, .project-card, .experience-card, .blog-card');
     
@@ -196,13 +275,13 @@ const fadeInOnScroll = () => {
                 entry.target.style.opacity = '0';
                 entry.target.style.transform = 'translateY(30px)';
                 
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
-                }, 100);
+                });
                 
-                observer.unobserve(entry.target);
+                observer.unobserve(entry.target); // Stop observing after animation
             }
         });
     }, { threshold: 0.1 });
