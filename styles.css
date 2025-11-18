@@ -1402,3 +1402,189 @@ body.dark-mode .client-logo {
         width: 100%;
     }
 }
+
+/* CTA Buttons and Marketing Elements */
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.cta-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-cyan));
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+.cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+}
+
+.cta-secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.cta-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.cta-inline {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 255, 0.05));
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+}
+
+.cta-subtext {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #ff6b6b;
+    font-weight: 600;
+}
+
+.service-cta {
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+.service-cta a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.service-cta a:hover {
+    color: var(--accent-cyan);
+    text-decoration: underline;
+}
+
+.services-cta {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 255, 0.1));
+    border-radius: 12px;
+}
+
+.services-cta .lead {
+    margin-bottom: 1.5rem;
+}
+
+.contact-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.benefit-item {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 255, 0.05));
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+.contact-urgency {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 159, 67, 0.1));
+    border-radius: 8px;
+    margin: 2rem 0;
+    border: 2px solid #ff6b6b;
+}
+
+.contact-urgency .highlight {
+    color: #ff6b6b;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.btn-large {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+    width: 100%;
+    max-width: 500px;
+    margin: 1rem auto;
+    display: block;
+}
+
+.form-guarantee {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.contact-alternative {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+}
+
+.contact-alternative a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contact-alternative a:hover {
+    text-decoration: underline;
+}
+
+/* Dark Mode CTA Styles */
+body.dark-mode .cta-inline {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 255, 0.1));
+}
+
+body.dark-mode .benefit-item {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 255, 0.1));
+}
+
+body.dark-mode .contact-urgency {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 159, 67, 0.2));
+}
+
+body.dark-mode .contact-alternative {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .form-guarantee {
+    color: #999;
+}
+
+/* Mobile CTA Adjustments */
+@media (max-width: 768px) {
+    .hero-cta {
+        flex-direction: column;
+    }
+    
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .contact-benefits {
+        grid-template-columns: 1fr;
+    }
+}
