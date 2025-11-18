@@ -1,4 +1,122 @@
+// ===================================
+// Preloader
+// ===================================
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+        preloader.classList.add('hidden');
+        document.body.style.overflow = 'visible';
+    }, 1000);
+});
+
+// ===================================
+// Scroll Progress Bar
+// ===================================
+window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scrollProgress');
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    scrollProgress.style.width = scrolled + '%';
+});
+
+// ===================================
+// Theme Toggle (Dark/Light Mode)
+// ===================================
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('.theme-icon');
+const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeIcon.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    themeIcon.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+// ===================================
+// Mobile Menu Toggle
+// ===================================
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        const isExpanded = navMenu.classList.contains('active');
+        mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
+    });
+
+    // Close menu when clicking a link
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+}
+
+// ===================================
+// Cookie Banner
+// ===================================
+const cookieBanner = document.getElementById('cookieBanner');
+const acceptCookies = document.getElementById('acceptCookies');
+const declineCookies = document.getElementById('declineCookies');
+
+const cookieConsent = localStorage.getItem('cookieConsent');
+
+if (!cookieConsent) {
+    setTimeout(() => {
+        cookieBanner.classList.add('show');
+    }, 2000);
+}
+
+acceptCookies.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'accepted');
+    cookieBanner.classList.remove('show');
+});
+
+declineCookies.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'declined');
+    cookieBanner.classList.remove('show');
+});
+
+// ===================================
+// Skills Animation (repeatable on scroll)
+// ===================================
+const animateSkills = () => {
+    const skillBars = document.querySelectorAll('.skill-progress');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const progress = entry.target.getAttribute('data-progress');
+            if (entry.isIntersecting) {
+                // Reset and animate
+                entry.target.style.width = '0%';
+                setTimeout(() => {
+                    entry.target.style.width = progress + '%';
+                }, 100);
+            } else {
+                // Reset when out of view
+                entry.target.style.width = '0%';
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    skillBars.forEach(bar => observer.observe(bar));
+};
+
+animateSkills();
+
+// ===================================
 // Smooth scrolling for navigation links
+// ===================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
