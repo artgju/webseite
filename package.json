@@ -1,0 +1,11 @@
+{
+  "name": "vuralavci",
+  "version": "1.0.0",
+  "description": "Portfolio Website",
+  "scripts": {
+    "start": "http-server . -o -c-1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
