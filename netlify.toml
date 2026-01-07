@@ -1,0 +1,10 @@
+[build]
+  publish = "."
+
+# Wartungsmodus: Leitet / auf maintenance.html um
+# Zum Deaktivieren: [[redirects]] Block auskommentieren oder löschen
+[[redirects]]
+  from = "/"
+  to = "/maintenance.html"
+  status = 302
+  force = true
