@@ -3,136 +3,504 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#111827" />
-    <title>Wartungsarbeiten</title>
-    <style>
-      :root {
-        color-scheme: light dark;
+    <meta
+      name="description"
+      content="Vural Avci - SAP Integration Architect (BTP/CPI/APIM) | Fullstack Development (UI5/ABAP/RAP/CAP)"
+    />
+    <meta
+      name="keywords"
+      content="SAP Integration, BTP, CPI, APIM, Fullstack, SAPUI5, ABAP, RAP, CAP, Integration Architect"
+    />
+    <meta name="author" content="Vural Avci" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vuralavci.de/" />
+    <meta
+      property="og:title"
+      content="Vural Avci - SAP Integration Architect & Fullstack Developer"
+    />
+    <meta
+      property="og:description"
+      content="Zertifizierter SAP Integration Architect mit Fokus auf BTP, CPI, APIM und Fullstack Development (UI5/ABAP/RAP/CAP)"
+    />
+    <meta
+      property="og:image"
+      content="https://vuralavci.de/images/og-image.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://vuralavci.de/" />
+    <meta
+      property="twitter:title"
+      content="Vural Avci - SAP Integration Architect & Fullstack Developer"
+    />
+    <meta
+      property="twitter:description"
+      content="Zertifizierter SAP Integration Architect mit Fokus auf BTP, CPI, APIM und Fullstack Development (UI5/ABAP/RAP/CAP)"
+    />
+    <meta
+      property="twitter:image"
+      content="https://vuralavci.de/images/og-image.jpg"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1a1a2e" />
+
+    <title>Vural Avci - SAP Integration & Fullstack</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Vural Avci",
+        "jobTitle": "SAP Integration Architect & Fullstack Developer",
+        "description": "Zertifizierter SAP Integration Architect mit einer Leidenschaft für saubere, robuste End-to-End-Prozesse",
+        "url": "https://vuralavci.de",
+        "sameAs": ["https://www.linkedin.com/in/vural-avci"],
+        "knowsAbout": [
+          "SAP Integration Suite",
+          "SAP BTP",
+          "CPI",
+          "API Management",
+          "SAPUI5",
+          "Fiori Elements",
+          "SAP CAP",
+          "ABAP RAP"
+        ]
       }
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
-          sans-serif;
-        line-height: 1.5;
-        background: #0b1220;
-        color: #e5e7eb;
-      }
-      .wrap {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 48px 16px;
-      }
-      .card {
-        width: min(720px, 100%);
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        padding: 28px 22px;
-      }
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 12px;
-      }
-      .badge {
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: rgba(255, 255, 255, 0.06);
-      }
-      h1 {
-        margin: 0 0 8px;
-        font-size: 28px;
-        letter-spacing: -0.02em;
-      }
-      p {
-        margin: 0 0 14px;
-        color: rgba(229, 231, 235, 0.9);
-      }
-      .meta {
-        margin-top: 16px;
-        padding-top: 16px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px 16px;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .links a {
-        color: rgba(229, 231, 235, 0.92);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(229, 231, 235, 0.25);
-      }
-      .links a:hover {
-        border-bottom-color: rgba(229, 231, 235, 0.6);
-      }
-      .contact a {
-        color: rgba(229, 231, 235, 0.92);
-        text-decoration: none;
-      }
-      @media (prefers-color-scheme: light) {
-        body {
-          background: #f9fafb;
-          color: #111827;
-        }
-        .card {
-          background: white;
-          border-color: rgba(17, 24, 39, 0.08);
-        }
-        p {
-          color: rgba(17, 24, 39, 0.8);
-        }
-        .badge {
-          border-color: rgba(17, 24, 39, 0.14);
-          background: rgba(17, 24, 39, 0.03);
-        }
-        .links a {
-          color: rgba(17, 24, 39, 0.86);
-          border-bottom-color: rgba(17, 24, 39, 0.25);
-        }
-        .contact a {
-          color: rgba(17, 24, 39, 0.86);
-        }
-      }
-    </style>
+    </script>
   </head>
   <body>
-    <main class="wrap" role="main">
-      <section class="card" aria-label="Wartungsseite">
-        <div class="brand">
-          <div class="badge" aria-hidden="true">VA</div>
-          <div>
-            <div style="font-size: 14px; opacity: 0.8">vuralavci.de</div>
+    <!-- Skip to main content (Accessibility) -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
+    <!-- Theme Toggle -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Theme wechseln">
+      <span class="theme-icon">◐</span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Hauptnavigation">
+      <div class="container">
+        <a href="/" class="nav-logo" aria-label="Zur Startseite">VA</a>
+        <button
+          class="mobile-menu-toggle"
+          aria-label="Menü öffnen"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="#about">Über mich</a></li>
+          <li><a href="#services">Leistungen</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projekte</a></li>
+          <li><a href="#contact" class="nav-cta">Kontakt</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="main-content">
+      <!-- Hero Section -->
+      <section class="hero" id="home">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <p class="hero-label">SAP Integration & Fullstack</p>
+              <h1 class="hero-title">
+                Ich verbinde Systeme.<br />Und Menschen mit Lösungen.
+              </h1>
+              <p class="hero-subtitle">
+                Integration Architect mit 8+ Jahren Erfahrung in SAP BTP, CPI
+                und modernem UI5/Fiori Development.
+              </p>
+              <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary"
+                  >Projekt besprechen</a
+                >
+                <a href="#projects" class="btn btn-ghost">Arbeiten ansehen</a>
+              </div>
+            </div>
+            <div class="hero-image">
+              <img
+                src="images/vural-avci-avatar.jpg"
+                alt="Vural Avci"
+                loading="eager"
+              />
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number" data-target="8">0</span>
+              <span class="stat-label">Jahre Erfahrung</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="25">0</span>
+              <span class="stat-label">SAP Projekte</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="99">0</span>
+              <span class="stat-label">% Verfügbarkeit</span>
+            </div>
           </div>
         </div>
+      </section>
 
-        <h1>Wir sind kurz offline.</h1>
-        <p>
-          Wir arbeiten aktuell an der Website, damit Inhalte und Funktionen
-          verbessert werden können.
-        </p>
-        <p>Bitte später noch einmal vorbeischauen.</p>
-
-        <div class="meta">
-          <div class="contact">
-            Kontakt:
-            <a href="mailto:kontakt@vuralavci.de">kontakt@vuralavci.de</a>
+      <!-- About Section -->
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-grid">
+            <div class="section-header">
+              <span class="section-label">Über mich</span>
+              <h2 class="section-title">Integration trifft Fullstack</h2>
+            </div>
+            <div class="section-content">
+              <p class="text-large">
+                Die meisten Projekte scheitern an der Schnittstelle zwischen
+                Backend-Integration und Frontend. Zwei Teams, zwei Welten,
+                endlose Abstimmungsschleifen.
+              </p>
+              <p>
+                Ich liefere beides aus einer Hand: Von CPI iFlows über APIs bis
+                zu modernen UI5/Fiori-Apps. Das bedeutet für Sie: Schnellere
+                Umsetzung, keine Kommunikationsverluste, durchgängige Qualität.
+              </p>
+              <p>
+                Mein Ansatz ist pragmatisch. Ich erkenne Muster, die andere
+                übersehen – nicht nur im Code, sondern auch in den Prozessen
+                dahinter. Das Ergebnis sind Lösungen, die nicht nur
+                funktionieren, sondern auch wartbar bleiben.
+              </p>
+            </div>
           </div>
-          <div class="links">
-            <a href="impressum.html">Impressum</a> |
-            <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section class="section section-dark" id="services">
+        <div class="container">
+          <span class="section-label">Leistungen</span>
+          <h2 class="section-title">Was ich für Sie tun kann</h2>
+
+          <div class="services-grid">
+            <article class="service-card">
+              <span class="service-number">01</span>
+              <h3>SAP Integration Suite</h3>
+              <p>
+                CPI iFlows, API Management und Event Mesh. Standardisierte
+                Integrationen, die Ihre Systemlandschaft verbinden.
+              </p>
+              <ul class="service-tags">
+                <li>CPI</li>
+                <li>APIM</li>
+                <li>Event Mesh</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <span class="service-number">02</span>
+              <h3>BTP & Cloud Architektur</h3>
+              <p>
+                S/4HANA-Anbindungen, B2B-Integration und skalierbare
+                Cloud-Architekturen für Ihre digitale Transformation.
+              </p>
+              <ul class="service-tags">
+                <li>SAP BTP</li>
+                <li>S/4HANA</li>
+                <li>EDI</li>
+              </ul>
+            </article>
+
+            <article class="service-card">
+              <span class="service-number">03</span>
+              <h3>Fullstack Development</h3>
+              <p>
+                Moderne UI5/Fiori-Apps mit ABAP RAP oder CAP Backend.
+                End-to-End-Lösungen für maximale User Experience.
+              </p>
+              <ul class="service-tags">
+                <li>SAPUI5</li>
+                <li>Fiori</li>
+                <li>RAP/CAP</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section class="section" id="skills">
+        <div class="container">
+          <div class="section-grid">
+            <div class="section-header">
+              <span class="section-label">Technologien</span>
+              <h2 class="section-title">Mein Stack</h2>
+            </div>
+            <div class="skills-content">
+              <div class="skill-group">
+                <h3>Integration</h3>
+                <div class="skill-list">
+                  <span class="skill-tag">SAP CPI</span>
+                  <span class="skill-tag">API Management</span>
+                  <span class="skill-tag">Event Mesh</span>
+                  <span class="skill-tag">SAP BTP</span>
+                  <span class="skill-tag">OData</span>
+                  <span class="skill-tag">REST/SOAP</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <h3>Frontend</h3>
+                <div class="skill-list">
+                  <span class="skill-tag">SAPUI5</span>
+                  <span class="skill-tag">Fiori Elements</span>
+                  <span class="skill-tag">JavaScript</span>
+                  <span class="skill-tag">TypeScript</span>
+                  <span class="skill-tag">HTML/CSS</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <h3>Backend</h3>
+                <div class="skill-list">
+                  <span class="skill-tag">ABAP RAP</span>
+                  <span class="skill-tag">SAP CAP</span>
+                  <span class="skill-tag">Node.js</span>
+                  <span class="skill-tag">ABAP OO</span>
+                  <span class="skill-tag">CDS</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <h3>Tools & Methods</h3>
+                <div class="skill-list">
+                  <span class="skill-tag">Git</span>
+                  <span class="skill-tag">CI/CD</span>
+                  <span class="skill-tag">Scrum</span>
+                  <span class="skill-tag">SAP BAS</span>
+                  <span class="skill-tag">VS Code</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section class="section section-dark" id="projects">
+        <div class="container">
+          <span class="section-label">Referenzen</span>
+          <h2 class="section-title">Ausgewählte Projekte</h2>
+
+          <div class="projects-grid">
+            <article class="project-card">
+              <div class="project-header">
+                <span class="project-industry">Automotive</span>
+                <h3>Integration Suite Migration</h3>
+              </div>
+              <p>
+                Migration von 200+ Schnittstellen zur SAP Integration Suite. 35%
+                Kostenreduktion und 99,8% Systemverfügbarkeit.
+              </p>
+              <div class="project-results">
+                <div class="result">
+                  <span class="result-value">200+</span>
+                  <span class="result-label">Schnittstellen</span>
+                </div>
+                <div class="result">
+                  <span class="result-value">35%</span>
+                  <span class="result-label">Kostenreduktion</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-header">
+                <span class="project-industry">Finance</span>
+                <h3>Echtzeit-Payment Platform</h3>
+              </div>
+              <p>
+                Event-basierte BTP-Architektur für Echtzeit-Zahlungen.
+                Transaktionszeit von 5 Minuten auf 10 Sekunden reduziert.
+              </p>
+              <div class="project-results">
+                <div class="result">
+                  <span class="result-value">10s</span>
+                  <span class="result-label">Transaktionszeit</span>
+                </div>
+                <div class="result">
+                  <span class="result-value">80%</span>
+                  <span class="result-label">Weniger manuell</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-header">
+                <span class="project-industry">Retail</span>
+                <h3>E-Commerce Integration</h3>
+              </div>
+              <p>
+                Fullstack-Lösung mit Fiori, CAP und CPI für nahtlose
+                Shop-Integration. 65% schnellerer Bestellprozess.
+              </p>
+              <div class="project-results">
+                <div class="result">
+                  <span class="result-value">65%</span>
+                  <span class="result-label">Schneller</span>
+                </div>
+                <div class="result">
+                  <span class="result-value">40%</span>
+                  <span class="result-label">Weniger Tickets</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Downloads Section -->
+      <section class="section" id="downloads">
+        <div class="container">
+          <div class="downloads-box">
+            <div class="downloads-text">
+              <h2>Profil & Projektübersicht</h2>
+              <p>
+                Alle Details zu meinem Werdegang und meinen Projekten – als PDF
+                zum Download.
+              </p>
+            </div>
+            <div class="downloads-actions">
+              <a
+                href="docs/profile_vural_avci.pdf"
+                class="btn btn-secondary"
+                download
+                >Profil herunterladen</a
+              >
+              <a
+                href="docs/projects_vural_avci.pdf"
+                class="btn btn-ghost"
+                download
+                >Projektübersicht</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="section section-dark" id="contact">
+        <div class="container">
+          <div class="contact-grid">
+            <div class="contact-info">
+              <span class="section-label">Kontakt</span>
+              <h2 class="section-title">Lassen Sie uns sprechen</h2>
+              <p class="text-large">
+                Haben Sie ein Projekt im Kopf? Ich freue mich auf Ihre
+                Nachricht.
+              </p>
+
+              <div class="contact-details">
+                <a href="mailto:kontakt@vuralavci.de" class="contact-link">
+                  <span class="contact-label">E-Mail</span>
+                  kontakt@vuralavci.de
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/vural-avci"
+                  target="_blank"
+                  rel="noopener"
+                  class="contact-link"
+                >
+                  <span class="contact-label">LinkedIn</span>
+                  linkedin.com/in/vural-avci
+                </a>
+              </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="form-group">
+                <label for="interest">Interesse</label>
+                <select id="interest" name="interest" required>
+                  <option value="">Bitte wählen</option>
+                  <option value="integration">SAP Integration</option>
+                  <option value="fullstack">Fullstack Development</option>
+                  <option value="both">Beides</option>
+                  <option value="consulting">Beratung</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Nachricht</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                Nachricht senden
+              </button>
+            </form>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2025 Vural Avci</p>
+          <div class="footer-links">
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress"></div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="preloader-content">
+        <span class="preloader-logo">VA</span>
+      </div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+      <div class="cookie-content">
+        <p>
+          Diese Website verwendet Cookies für die bestmögliche Nutzererfahrung.
+        </p>
+        <div class="cookie-buttons">
+          <button id="acceptCookies" class="btn btn-small btn-primary">
+            OK
+          </button>
+          <button id="declineCookies" class="btn btn-small btn-ghost">
+            Ablehnen
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
   </body>
 </html>

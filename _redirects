@@ -1,0 +1,3 @@
+# Wartungsmodus: Zeigt maintenance.html statt index.html
+# Zum Deaktivieren: Diese Zeile auskommentieren oder Datei löschen
+/  /maintenance.html  200
