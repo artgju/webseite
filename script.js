@@ -1,410 +1,307 @@
 // ===================================
-// Security & Performance Utilities
+// Utility Functions
 // ===================================
 
-// XSS Protection: Sanitize HTML input
-function sanitizeHTML(str) {
-    const temp = document.createElement('div');
-    temp.textContent = str;
-    return temp.innerHTML;
-}
-
-// Debounce function for performance
 function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
     };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 }
 
-// Throttle function for scroll events
 function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
+  let inThrottle;
+  return function (...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
 }
 
 // ===================================
 // Preloader
 // ===================================
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
+window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
     setTimeout(() => {
-        preloader.classList.add('hidden');
-        document.body.style.overflow = 'visible';
-    }, 1000);
+      preloader.classList.add("hidden");
+    }, 600);
+  }
 });
 
 // ===================================
-// Scroll Progress Bar - Throttled
+// Scroll Progress Bar
 // ===================================
 const updateScrollProgress = throttle(() => {
-    const scrollProgress = document.getElementById('scrollProgress');
-    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (window.scrollY / windowHeight) * 100;
-    scrollProgress.style.width = scrolled + '%';
-}, 16); // ~60fps
+  const scrollProgress = document.getElementById("scrollProgress");
+  if (!scrollProgress) return;
 
-window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  const windowHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  const scrolled = (window.scrollY / windowHeight) * 100;
+  scrollProgress.style.width = scrolled + "%";
+}, 16);
+
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
 
 // ===================================
 // Theme Toggle (Dark/Light Mode)
 // ===================================
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = themeToggle.querySelector('.theme-icon');
-const savedTheme = localStorage.getItem('theme');
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = themeToggle?.querySelector(".theme-icon");
 
-// Validate saved theme
-if (savedTheme === 'dark' || savedTheme === 'light') {
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeIcon.textContent = '☀️';
-    }
-}
+if (themeToggle && themeIcon) {
+  // Check saved theme
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    themeIcon.textContent = "○";
+  }
 
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    themeIcon.textContent = isDark ? '☀️' : '🌙';
-    
+  // Also check system preference
+  if (
+    !savedTheme &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    document.body.classList.add("dark-mode");
+    themeIcon.textContent = "○";
+  }
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    themeIcon.textContent = isDark ? "○" : "◐";
+
     try {
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      localStorage.setItem("theme", isDark ? "dark" : "light");
     } catch (e) {
-        console.warn('LocalStorage not available');
+      console.warn("LocalStorage not available");
     }
-});
+  });
+}
 
 // ===================================
 // Mobile Menu Toggle
 // ===================================
-const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-const navMenu = document.querySelector('.nav-menu');
+const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+const navMenu = document.querySelector(".nav-menu");
 
-if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', () => {
-        mobileMenuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        const isExpanded = navMenu.classList.contains('active');
-        mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
-    });
+if (mobileMenuToggle && navMenu) {
+  mobileMenuToggle.addEventListener("click", () => {
+    mobileMenuToggle.classList.toggle("active");
+    navMenu.classList.toggle("active");
+    const isExpanded = navMenu.classList.contains("active");
+    mobileMenuToggle.setAttribute("aria-expanded", isExpanded);
+  });
 
-    // Close menu when clicking a link
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenuToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        });
+  // Close menu when clicking a link
+  navMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenuToggle.classList.remove("active");
+      navMenu.classList.remove("active");
+      mobileMenuToggle.setAttribute("aria-expanded", "false");
     });
+  });
 }
 
 // ===================================
-// Cookie Banner - with validation
+// Cookie Banner
 // ===================================
-const cookieBanner = document.getElementById('cookieBanner');
-const acceptCookies = document.getElementById('acceptCookies');
-const declineCookies = document.getElementById('declineCookies');
+const cookieBanner = document.getElementById("cookieBanner");
+const acceptCookies = document.getElementById("acceptCookies");
+const declineCookies = document.getElementById("declineCookies");
 
-let cookieConsent = null;
-try {
-    cookieConsent = localStorage.getItem('cookieConsent');
-    // Validate stored value
-    if (cookieConsent !== 'accepted' && cookieConsent !== 'declined') {
-        cookieConsent = null;
+if (cookieBanner && acceptCookies && declineCookies) {
+  let cookieConsent = null;
+  try {
+    cookieConsent = localStorage.getItem("cookieConsent");
+    if (cookieConsent !== "accepted" && cookieConsent !== "declined") {
+      cookieConsent = null;
     }
-} catch (e) {
-    console.warn('LocalStorage not available');
-}
+  } catch (e) {
+    console.warn("LocalStorage not available");
+  }
 
-if (!cookieConsent) {
+  if (!cookieConsent) {
     setTimeout(() => {
-        cookieBanner.classList.add('show');
-    }, 2000);
-}
+      cookieBanner.classList.add("show");
+    }, 1500);
+  }
 
-acceptCookies.addEventListener('click', () => {
+  acceptCookies.addEventListener("click", () => {
     try {
-        localStorage.setItem('cookieConsent', 'accepted');
-    } catch (e) {
-        console.warn('Cannot save cookie consent');
-    }
-    cookieBanner.classList.remove('show');
-});
+      localStorage.setItem("cookieConsent", "accepted");
+    } catch (e) {}
+    cookieBanner.classList.remove("show");
+  });
 
-declineCookies.addEventListener('click', () => {
+  declineCookies.addEventListener("click", () => {
     try {
-        localStorage.setItem('cookieConsent', 'declined');
-    } catch (e) {
-        console.warn('Cannot save cookie consent');
-    }
-    cookieBanner.classList.remove('show');
-});
-
-// ===================================
-// Hexagon Hover Effects - Optimized
-// ===================================
-const initHexagons = () => {
-    const hexagons = document.querySelectorAll('.hexagon');
-    
-    hexagons.forEach(hex => {
-        hex.addEventListener('mouseenter', function() {
-            // Subtle sound effect could be added here in future
-            this.style.zIndex = '10';
-        });
-        
-        hex.addEventListener('mouseleave', function() {
-            this.style.zIndex = '1';
-        });
-    });
-};
-
-// Initialize hexagons after DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHexagons);
-} else {
-    initHexagons();
+      localStorage.setItem("cookieConsent", "declined");
+    } catch (e) {}
+    cookieBanner.classList.remove("show");
+  });
 }
 
 // ===================================
-// Smooth scrolling for navigation links
+// Smooth Scrolling
 // ===================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute("href");
+    const target = document.querySelector(targetId);
+    if (target) {
+      const navbarHeight = 64;
+      const targetPosition =
+        target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }
+  });
 });
 
-// Navbar scroll effect - Throttled
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
+// ===================================
+// Counter Animation
+// ===================================
+const animateCounters = () => {
+  const counters = document.querySelectorAll(".stat-number[data-target]");
+  const observedCounters = new Set();
 
-const updateNavbar = throttle(() => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        navbar.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
-    } else {
-        navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-    }
-    
-    lastScroll = currentScroll;
-}, 100);
+  const animateCounter = (counter) => {
+    if (observedCounters.has(counter)) return;
+    observedCounters.add(counter);
 
-window.addEventListener('scroll', updateNavbar, { passive: true });
+    const target = parseInt(counter.getAttribute("data-target"));
+    if (isNaN(target) || target < 0) return;
 
-// Counter animation for experience numbers - Optimized
-const counterAnimation = () => {
-    const counters = document.querySelectorAll('.experience-number');
-    const observedCounters = new Set();
-    
-    const animateCounter = (counter) => {
-        // Prevent duplicate animations
-        if (observedCounters.has(counter)) return;
-        observedCounters.add(counter);
-        
-        const target = parseInt(counter.getAttribute('data-target'));
-        if (isNaN(target) || target < 0 || target > 1000000) return; // Validation
-        
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
-        let animationId;
-        
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                counter.textContent = Math.floor(current);
-                animationId = requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target;
-                observedCounters.delete(counter);
-            }
-        };
-        
-        updateCounter();
+    const duration = 1500;
+    const increment = target / (duration / 16);
+    let current = 0;
+
+    const updateCounter = () => {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.floor(current);
+        requestAnimationFrame(updateCounter);
+      } else {
+        counter.textContent = target;
+        observedCounters.delete(counter);
+      }
     };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Reset counter to 0
-                entry.target.textContent = '0';
-                // Start animation
-                animateCounter(entry.target);
-            }
-        });
-    }, { 
-        threshold: 0.5,
-        rootMargin: '0px'
-    });
-    
-    counters.forEach(counter => {
-        if (counter.getAttribute('data-target')) {
-            observer.observe(counter);
+
+    updateCounter();
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.textContent = "0";
+          animateCounter(entry.target);
         }
-    });
+      });
+    },
+    {
+      threshold: 0.5,
+    }
+  );
+
+  counters.forEach((counter) => observer.observe(counter));
 };
 
-// Initialize counter animation
-counterAnimation();
+animateCounters();
 
-// Fade-in animation on scroll - Optimized
+// ===================================
+// Fade-in on Scroll
+// ===================================
 const fadeInOnScroll = () => {
-    const elements = document.querySelectorAll('.service-card, .project-card, .experience-card, .blog-card');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '0';
-                entry.target.style.transform = 'translateY(30px)';
-                
-                requestAnimationFrame(() => {
-                    entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                });
-                
-                observer.unobserve(entry.target); // Stop observing after animation
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    elements.forEach(element => observer.observe(element));
+  const elements = document.querySelectorAll(
+    ".service-card, .project-card, .skill-group, .downloads-box"
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }, index * 50);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  elements.forEach((element) => {
+    element.style.opacity = "0";
+    element.style.transform = "translateY(20px)";
+    element.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+    observer.observe(element);
+  });
 };
 
-// Initialize fade-in animation
 fadeInOnScroll();
 
-// Contact form handling
-const contactForm = document.getElementById('contactForm');
+// ===================================
+// Contact Form
+// ===================================
+const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        
-        // Here you would normally send the data to a server
-        // For now, we'll just show a success message
-        
-        // Show success message
-        const submitButton = this.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        submitButton.textContent = 'Gesendet! ✓';
-        submitButton.style.backgroundColor = '#28a745';
-        
-        // Reset form
-        this.reset();
-        
-        // Reset button after 3 seconds
-        setTimeout(() => {
-            submitButton.textContent = originalText;
-            submitButton.style.backgroundColor = '';
-        }, 3000);
-        
-        // Log form data (for development)
-        console.log('Form submitted:', data);
-    });
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+
+    // Show success state
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = "Gesendet ✓";
+    submitButton.style.background = "#059669";
+    submitButton.disabled = true;
+
+    // Reset form
+    this.reset();
+
+    // Reset button after 3 seconds
+    setTimeout(() => {
+      submitButton.textContent = originalText;
+      submitButton.style.background = "";
+      submitButton.disabled = false;
+    }, 3000);
+
+    console.log("Form submitted:", data);
+  });
 }
 
-// Mobile menu toggle (for future enhancement)
-const createMobileMenu = () => {
-    const navbar = document.querySelector('.navbar .container');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    // Create hamburger button
-    const hamburger = document.createElement('button');
-    hamburger.className = 'hamburger';
-    hamburger.innerHTML = '☰';
-    hamburger.style.cssText = `
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--dark-color);
-    `;
-    
-    // Add hamburger to navbar
-    navbar.appendChild(hamburger);
-    
-    // Toggle menu on mobile
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-    });
-    
-    // Show hamburger on mobile
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    const handleMobileMenu = (e) => {
-        if (e.matches) {
-            hamburger.style.display = 'block';
-            navMenu.style.cssText = `
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                display: none;
-            `;
-        } else {
-            hamburger.style.display = 'none';
-            navMenu.style.cssText = '';
-        }
-    };
-    
-    mediaQuery.addListener(handleMobileMenu);
-    handleMobileMenu(mediaQuery);
-    
-    // Add active class toggle
-    const style = document.createElement('style');
-    style.textContent = `
-        .nav-menu.active {
-            display: flex !important;
-        }
-    `;
-    document.head.appendChild(style);
-};
+// ===================================
+// Navbar Background on Scroll
+// ===================================
+const navbar = document.querySelector(".navbar");
 
-// Initialize mobile menu
-createMobileMenu();
+const updateNavbar = throttle(() => {
+  if (!navbar) return;
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero-content');
-    if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-        hero.style.opacity = 1 - (scrolled / 600);
-    }
-});
+  if (window.scrollY > 50) {
+    navbar.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
+  } else {
+    navbar.style.boxShadow = "none";
+  }
+}, 100);
 
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
-});
+window.addEventListener("scroll", updateNavbar, { passive: true });
