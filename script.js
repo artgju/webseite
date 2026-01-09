@@ -393,28 +393,28 @@ if (contactForm) {
     } catch (error) {
       console.error("Form error:", error);
 
-      // Check if running locally (not on Netlify)
-      const isLocal =
-        window.location.hostname === "localhost" ||
-        window.location.hostname === "127.0.0.1";
-
-      if (isLocal) {
-        // Show helpful message for local testing
-        submitButton.textContent = "Lokal - E-Mail nutzen";
-        submitButton.style.background = "#f59e0b";
-        alert(
-          "Das Kontaktformular funktioniert nur auf der Live-Seite (Netlify).\n\nBitte nutzen Sie für lokale Tests: kontakt@vuralavci.de"
-        );
-      } else {
-        submitButton.textContent = "Fehler - Erneut versuchen";
-        submitButton.style.background = "#dc2626";
-      }
+      // Fallback: Open email client with pre-filled data
+      const name = formData.get("name") || "";
+      const email = formData.get("email") || "";
+      const interest = formData.get("interest") || "";
+      const message = formData.get("message") || "";
+      
+      const subject = encodeURIComponent(`Kontaktanfrage: ${interest}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nE-Mail: ${email}\nInteresse: ${interest}\n\nNachricht:\n${message}`
+      );
+      
+      // Try mailto as fallback
+      window.location.href = `mailto:kontakt@vuralavci.de?subject=${subject}&body=${body}`;
+      
+      submitButton.textContent = "E-Mail öffnen...";
+      submitButton.style.background = "#f59e0b";
       submitButton.disabled = false;
 
       setTimeout(() => {
         submitButton.textContent = originalText;
         submitButton.style.background = "";
-      }, 4000);
+      }, 3000);
     }
   });
 }

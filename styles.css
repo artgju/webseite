@@ -1012,7 +1012,7 @@ body.dark-mode .navbar {
    =================================== */
 .cookie-banner {
   position: fixed;
-  bottom: -100px;
+  bottom: 0;
   left: var(--space-md);
   right: var(--space-md);
   max-width: 480px;
@@ -1022,11 +1022,16 @@ body.dark-mode .navbar {
   padding: var(--space-md);
   box-shadow: var(--shadow-lg);
   z-index: 9999;
-  transition: bottom 0.3s ease;
+  transform: translateY(150%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .cookie-banner.show {
-  bottom: var(--space-lg);
+  transform: translateY(-20px);
+  opacity: 1;
+  visibility: visible;
 }
 
 .cookie-content {
@@ -1194,6 +1199,21 @@ body.dark-mode .navbar {
     min-height: auto;
     padding-top: calc(64px + var(--space-xl));
     padding-bottom: var(--space-xl);
+    overflow: hidden;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-label {
+    font-size: 0.75rem;
   }
 
   .hero-image img {
@@ -1203,12 +1223,24 @@ body.dark-mode .navbar {
 
   .hero-stats {
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     text-align: center;
+    align-items: center;
   }
 
   .stat {
     text-align: center;
+    padding: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-md);
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .stat:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   .footer-content {
@@ -1217,17 +1249,32 @@ body.dark-mode .navbar {
     text-align: center;
   }
 
+  .cookie-banner {
+    left: var(--space-sm);
+    right: var(--space-sm);
+    max-width: none;
+    padding: var(--space-sm);
+  }
+
   .cookie-content {
     flex-direction: column;
     text-align: center;
+    gap: var(--space-sm);
+  }
+
+  .cookie-content p {
+    font-size: 0.8125rem;
   }
 
   .cookie-buttons {
     width: 100%;
+    justify-content: center;
   }
 
   .cookie-buttons .btn {
     flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
   }
 
   .theme-toggle {
