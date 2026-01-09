@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
 
+# Blockiere unwichtige Seiten
+Disallow: /maintenance.html
+Disallow: /404.html
+
+# Sitemap
 Sitemap: https://vuralavci.de/sitemap.xml
+
+# Host
+Host: https://vuralavci.de

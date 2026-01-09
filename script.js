@@ -257,35 +257,165 @@ const fadeInOnScroll = () => {
 fadeInOnScroll();
 
 // ===================================
-// Contact Form
+// Contact Form with Validation
 // ===================================
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", function (e) {
+  // Email validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Validation functions
+  const validators = {
+    name: (value) => {
+      if (!value || value.trim().length < 2) {
+        return "Bitte geben Sie Ihren Namen ein (mind. 2 Zeichen).";
+      }
+      return "";
+    },
+    email: (value) => {
+      if (!value || !value.trim()) {
+        return "Bitte geben Sie Ihre E-Mail-Adresse ein.";
+      }
+      if (!emailRegex.test(value.trim())) {
+        return "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+      }
+      return "";
+    },
+    interest: (value) => {
+      if (!value) {
+        return "Bitte wählen Sie ein Interesse aus.";
+      }
+      return "";
+    },
+    message: (value) => {
+      if (!value || value.trim().length < 10) {
+        return "Bitte geben Sie eine Nachricht ein (mind. 10 Zeichen).";
+      }
+      return "";
+    },
+  };
+
+  // Show error message
+  const showError = (fieldId, message) => {
+    const errorSpan = document.getElementById(fieldId + "Error");
+    const field = document.getElementById(fieldId);
+    if (errorSpan) {
+      errorSpan.textContent = message;
+      errorSpan.style.display = message ? "block" : "none";
+    }
+    if (field) {
+      field.classList.toggle("input-error", !!message);
+    }
+  };
+
+  // Clear all errors
+  const clearErrors = () => {
+    ["name", "email", "interest", "message"].forEach((field) => {
+      showError(field, "");
+    });
+  };
+
+  // Validate single field on blur
+  ["name", "email", "interest", "message"].forEach((fieldId) => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.addEventListener("blur", () => {
+        const error = validators[fieldId](field.value);
+        showError(fieldId, error);
+      });
+      // Clear error on input
+      field.addEventListener("input", () => {
+        showError(fieldId, "");
+      });
+    }
+  });
+
+  // Form submission
+  contactForm.addEventListener("submit", async function (e) {
     e.preventDefault();
+    clearErrors();
 
+    // Validate all fields
+    let hasErrors = false;
     const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
 
-    // Show success state
+    ["name", "email", "interest", "message"].forEach((fieldId) => {
+      const value = formData.get(fieldId);
+      const error = validators[fieldId](value);
+      if (error) {
+        showError(fieldId, error);
+        hasErrors = true;
+      }
+    });
+
+    if (hasErrors) {
+      return;
+    }
+
     const submitButton = this.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
-    submitButton.textContent = "Gesendet ✓";
-    submitButton.style.background = "#059669";
+    const formSuccess = document.getElementById("formSuccess");
+
+    // Show loading state
+    submitButton.textContent = "Wird gesendet...";
     submitButton.disabled = true;
 
-    // Reset form
-    this.reset();
+    try {
+      // Submit to Netlify Forms
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      });
 
-    // Reset button after 3 seconds
-    setTimeout(() => {
-      submitButton.textContent = originalText;
-      submitButton.style.background = "";
+      if (response.ok) {
+        // Success
+        submitButton.textContent = "Gesendet ✓";
+        submitButton.style.background = "#059669";
+        if (formSuccess) {
+          formSuccess.style.display = "block";
+        }
+        this.reset();
+
+        // Reset button after 5 seconds
+        setTimeout(() => {
+          submitButton.textContent = originalText;
+          submitButton.style.background = "";
+          submitButton.disabled = false;
+          if (formSuccess) {
+            formSuccess.style.display = "none";
+          }
+        }, 5000);
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Form error:", error);
+
+      // Check if running locally (not on Netlify)
+      const isLocal =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
+
+      if (isLocal) {
+        // Show helpful message for local testing
+        submitButton.textContent = "Lokal - E-Mail nutzen";
+        submitButton.style.background = "#f59e0b";
+        alert(
+          "Das Kontaktformular funktioniert nur auf der Live-Seite (Netlify).\n\nBitte nutzen Sie für lokale Tests: kontakt@vuralavci.de"
+        );
+      } else {
+        submitButton.textContent = "Fehler - Erneut versuchen";
+        submitButton.style.background = "#dc2626";
+      }
       submitButton.disabled = false;
-    }, 3000);
 
-    console.log("Form submitted:", data);
+      setTimeout(() => {
+        submitButton.textContent = originalText;
+        submitButton.style.background = "";
+      }, 4000);
+    }
   });
 }
 
