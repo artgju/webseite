@@ -11,8 +11,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0a0e27 0%, #141b3d 50%, #1a2654 100%);
-            color: var(--white);
+            background: var(--color-bg, #fafafa);
+            color: var(--color-text, #1a1a1a);
             text-align: center;
             padding: 2rem;
         }
@@ -23,36 +23,38 @@
         
         .error-404 h1 {
             font-size: 8rem;
-            color: var(--primary-color);
+            font-weight: 700;
+            color: var(--color-primary, #3b82f6);
             margin-bottom: 1rem;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            line-height: 1;
         }
         
         .error-404 h2 {
             font-size: 2rem;
             margin-bottom: 1rem;
+            font-weight: 600;
         }
         
         .error-404 p {
-            font-size: 1.2rem;
+            font-size: 1.125rem;
             margin-bottom: 2rem;
-            color: var(--light-color);
+            color: var(--color-text-muted, #4a4a4a);
         }
         
         .error-404 .btn {
             display: inline-block;
             padding: 1rem 2rem;
-            background: var(--primary-color);
-            color: var(--dark-color);
+            background: var(--color-text, #1a1a1a);
+            color: var(--color-bg, #fafafa);
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: 600;
-            transition: var(--transition);
+            transition: all 0.2s ease;
         }
         
         .error-404 .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
     </style>
 </head>
