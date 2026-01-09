@@ -57,29 +57,34 @@ window.addEventListener("scroll", updateScrollProgress, { passive: true });
 // Theme Toggle (Dark/Light Mode)
 // ===================================
 const themeToggle = document.getElementById("themeToggle");
-const themeIcon = themeToggle?.querySelector(".theme-icon");
+const themeLabel = themeToggle?.querySelector(".theme-label");
 
-if (themeToggle && themeIcon) {
+if (themeToggle) {
+  // Update label based on current mode
+  const updateLabel = (isDark) => {
+    if (themeLabel) {
+      themeLabel.textContent = isDark ? "Dark" : "Light";
+    }
+  };
+
   // Check saved theme
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
     document.body.classList.add("dark-mode");
-    themeIcon.textContent = "○";
-  }
-
-  // Also check system preference
-  if (
-    !savedTheme &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
+    updateLabel(true);
+  } else if (savedTheme === "light") {
+    document.body.classList.remove("dark-mode");
+    updateLabel(false);
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    // Check system preference if no saved theme
     document.body.classList.add("dark-mode");
-    themeIcon.textContent = "○";
+    updateLabel(true);
   }
 
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
-    themeIcon.textContent = isDark ? "○" : "◐";
+    updateLabel(isDark);
 
     try {
       localStorage.setItem("theme", isDark ? "dark" : "light");
