@@ -118,11 +118,15 @@
     <!-- Skip to main content (Accessibility) -->
     <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
-    <!-- Theme Toggle - Desktop (in navbar) will be added via CSS -->
-    <button id="themeToggle" class="theme-toggle" aria-label="Theme wechseln">
-      <span class="theme-icon-sun">☀️</span>
-      <span class="theme-icon-moon">🌙</span>
-      <span class="theme-label">Light</span>
+    <!-- Theme Toggle -->
+    <button
+      id="themeToggle"
+      class="theme-toggle"
+      aria-label="Theme wechseln"
+      type="button"
+    >
+      <span class="theme-icon"></span>
+      <span class="theme-label">Dark Mode</span>
     </button>
 
     <!-- Navigation -->
@@ -323,8 +327,47 @@
         </div>
       </section>
 
+      <!-- Profil Section -->
+      <section class="section" id="profil">
+        <div class="container">
+          <div class="downloads-box">
+            <div class="downloads-text">
+              <h2>Vollständiges Profil</h2>
+              <p>
+                Alle Details zu meinem Werdegang, Projekten und Verfügbarkeit
+                finden Sie auf Freelancermap.
+              </p>
+            </div>
+            <div class="downloads-actions">
+              <a
+                href="https://www.freelancermap.de/profil/sap-consultant-298122"
+                class="btn btn-freelancermap"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Profil von Vural Avci auf Freelancermap"
+              >
+                <span>Profil auf Freelancermap ansehen</span>
+                <svg
+                  class="btn-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Skills Section -->
-      <section class="section" id="skills">
+      <section class="section section-dark" id="skills">
         <div class="container">
           <div class="section-grid">
             <div class="section-header">
@@ -379,7 +422,7 @@
       </section>
 
       <!-- Projects Section -->
-      <section class="section section-dark" id="projects">
+      <section class="section" id="projects">
         <div class="container">
           <span class="section-label">Referenzen</span>
           <h2 class="section-title">Ausgewählte Projekte</h2>
@@ -450,45 +493,6 @@
                 </div>
               </div>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- Profil Section -->
-      <section class="section" id="profil">
-        <div class="container">
-          <div class="downloads-box">
-            <div class="downloads-text">
-              <h2>Vollständiges Profil</h2>
-              <p>
-                Alle Details zu meinem Werdegang, Projekten und Verfügbarkeit
-                finden Sie auf Freelancermap.
-              </p>
-            </div>
-            <div class="downloads-actions">
-              <a
-                href="https://www.freelancermap.de/profil/sap-consultant-298122"
-                class="btn btn-freelancermap"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Profil von Vural Avci auf Freelancermap"
-              >
-                <span>Profil auf Freelancermap ansehen</span>
-                <svg
-                  class="btn-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                  />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </a>
-            </div>
           </div>
         </div>
       </section>

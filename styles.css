@@ -996,47 +996,36 @@ body.dark-mode .navbar {
   gap: 0.5rem;
   font-size: 1rem;
   z-index: 999;
-  transition: var(--transition);
+  transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .theme-toggle:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  border-color: var(--color-primary);
 }
 
 .theme-toggle:active {
   transform: scale(0.98);
 }
 
-.theme-icon-sun,
-.theme-icon-moon {
-  font-size: 1.25rem;
+.theme-toggle:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.theme-icon {
+  font-size: 1.125rem;
   line-height: 1;
-}
-
-/* Light mode (default): show sun, hide moon */
-.theme-icon-sun {
-  display: inline;
-}
-
-.theme-icon-moon {
-  display: none;
 }
 
 .theme-label {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--color-text);
-}
-
-/* Dark mode: show moon, hide sun */
-body.dark-mode .theme-icon-sun {
-  display: none;
-}
-
-body.dark-mode .theme-icon-moon {
-  display: inline;
 }
 
 body.dark-mode .theme-toggle {
@@ -1322,9 +1311,8 @@ body.dark-mode .theme-toggle {
     gap: 0.375rem;
   }
 
-  .theme-icon-sun,
-  .theme-icon-moon {
-    font-size: 1.125rem;
+  .theme-icon {
+    font-size: 1rem;
   }
 
   .theme-label {

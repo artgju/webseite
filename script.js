@@ -58,37 +58,39 @@ window.addEventListener("scroll", updateScrollProgress, { passive: true });
 // ===================================
 const themeToggle = document.getElementById("themeToggle");
 const themeLabel = themeToggle?.querySelector(".theme-label");
+const themeIcon = themeToggle?.querySelector(".theme-icon");
 
 if (themeToggle) {
-  // Update label based on current mode
-  const updateLabel = (isDark) => {
+  // Update button display based on current mode
+  const updateThemeButton = (isDark) => {
     if (themeLabel) {
-      themeLabel.textContent = isDark ? "Dark" : "Light";
+      themeLabel.textContent = isDark ? "Light Mode" : "Dark Mode";
+    }
+    if (themeIcon) {
+      themeIcon.textContent = isDark ? "☀️" : "🌙";
     }
   };
 
-  // Check saved theme
+  // Check saved theme - Light mode is default
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
     document.body.classList.add("dark-mode");
-    updateLabel(true);
-  } else if (savedTheme === "light") {
+    updateThemeButton(true);
+  } else {
+    // Light mode is default (no system preference check)
     document.body.classList.remove("dark-mode");
-    updateLabel(false);
-  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    // Check system preference if no saved theme
-    document.body.classList.add("dark-mode");
-    updateLabel(true);
+    updateThemeButton(false);
   }
 
-  themeToggle.addEventListener("click", () => {
+  themeToggle.addEventListener("click", (e) => {
+    e.preventDefault();
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
-    updateLabel(isDark);
+    updateThemeButton(isDark);
 
     try {
       localStorage.setItem("theme", isDark ? "dark" : "light");
-    } catch (e) {
+    } catch (err) {
       console.warn("LocalStorage not available");
     }
   });
