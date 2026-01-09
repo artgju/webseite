@@ -398,15 +398,15 @@ if (contactForm) {
       const email = formData.get("email") || "";
       const interest = formData.get("interest") || "";
       const message = formData.get("message") || "";
-      
+
       const subject = encodeURIComponent(`Kontaktanfrage: ${interest}`);
       const body = encodeURIComponent(
         `Name: ${name}\nE-Mail: ${email}\nInteresse: ${interest}\n\nNachricht:\n${message}`
       );
-      
+
       // Try mailto as fallback
       window.location.href = `mailto:kontakt@vuralavci.de?subject=${subject}&body=${body}`;
-      
+
       submitButton.textContent = "E-Mail öffnen...";
       submitButton.style.background = "#f59e0b";
       submitButton.disabled = false;
