@@ -29,22 +29,22 @@ function throttle(func, limit) {
 // Security: Input Sanitization
 // ===================================
 function sanitizeHTML(str) {
-  if (typeof str !== 'string') return '';
-  const temp = document.createElement('div');
+  if (typeof str !== "string") return "";
+  const temp = document.createElement("div");
   temp.textContent = str;
   return temp.innerHTML;
 }
 
 function sanitizeInput(str) {
-  if (typeof str !== 'string') return '';
+  if (typeof str !== "string") return "";
   return str
     .replace(/[<>"'&]/g, (char) => {
       const entities = {
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;',
-        '&': '&amp;'
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+        "&": "&amp;",
       };
       return entities[char] || char;
     })
