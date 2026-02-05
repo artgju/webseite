@@ -4,3 +4,6 @@ debug.log
 
 # Private ToDo (nicht committen)
 PRIVATE-TODO.md
+
+.vscode/
+docs/
