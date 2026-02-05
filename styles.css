@@ -397,15 +397,49 @@ body.dark-mode .navbar {
 }
 
 .hero-availability {
-  display: inline-block;
-  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--color-accent);
-  background: rgba(0, 212, 255, 0.1);
-  border: 1px solid var(--color-accent);
-  padding: 0.5rem 1rem;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  border: 2px solid #10b981;
+  padding: 0.6rem 1.2rem;
   border-radius: var(--radius-full);
   margin-bottom: var(--space-lg);
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+.hero-availability::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pulse-border {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
 }
 
 .hero-actions {
