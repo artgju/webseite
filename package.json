@@ -1,9 +1,10 @@
 {
   "name": "vuralavci",
   "version": "1.0.0",
-  "description": "Portfolio Website",
+  "description": "Vural Avci - SAP BTP AI & Full-Stack Solution Architect portfolio",
   "scripts": {
-    "start": "http-server . -o -c-1"
+    "start": "http-server . -o -c-1",
+    "check": "node --check script.js"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

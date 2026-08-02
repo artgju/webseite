@@ -1,0 +1,26 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  role="img"
+  aria-labelledby="favicon-title favicon-description"
+>
+  <title id="favicon-title">Vural Avci</title>
+  <desc id="favicon-description">VA monogram on a navy background</desc>
+  <rect width="64" height="64" rx="14" fill="#071521" />
+  <path
+    d="M10 17 25 48 40 17"
+    fill="none"
+    stroke="#2dd4bf"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M32 48 45 17 58 48M37 37h16"
+    fill="none"
+    stroke="#f4f7f9"
+    stroke-width="6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

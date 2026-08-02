@@ -1,321 +1,47 @@
-# Vural Avci - Portfolio Website
+# Vural Avci — SAP BTP AI & Full-Stack Architecture
 
-Eine professionelle A++++ Portfolio-Website für SAP Integration Architect & Fullstack Developer.
+Produktive Portfolio-Website für [vuralavci.de](https://vuralavci.de/).
 
-## 🚀 Features (Alle implementiert!)
+## Positionierung
 
-### ✅ Performance & Optimierung
-- **Netzwerk-Particle-Animation** im Hero-Bereich (interaktiv mit Maus)
-- **Lazy Loading** für Bilder
-- **GZIP Compression** via .htaccess
-- **Browser Caching** optimiert
-- **Minified Assets** bereit
+- SAP BTP AI & Full-Stack Solution Architect
+- Enterprise AI, Clean Core und Side-by-Side Extensibility
+- CAP, ABAP RAP, SAPUI5/Fiori, Integration Suite und Event Mesh
+- Verfügbar nach Absprache für Remote-Projekte im DACH-Raum
 
-### ✅ SEO & Meta
-- **Open Graph Tags** für Social Media
-- **Twitter Cards** für bessere Shares
-- **JSON-LD Structured Data** für Google
-- **Sitemap.xml** für Suchmaschinen
-- **Robots.txt** konfiguriert
-- **Canonical URLs**
+Die Projektdarstellungen sind bewusst anonymisiert. Die bestehenden Kundenlogos
+unter `images/logos/` sind freigegebene Bestandsassets und dürfen bei Änderungen
+nicht ersetzt, umbenannt oder einzelnen anonymisierten Cases zugeordnet werden.
 
-### ✅ Accessibility (WCAG 2.1 AAA)
-- **Skip Links** für Screen Reader
-- **ARIA Labels** überall
-- **Keyboard Navigation** vollständig
-- **Focus States** sichtbar
-- **Alt-Texte** für alle Bilder
+## Technischer Aufbau
 
-### ✅ Interaktive Features
-- **Scroll-Progress-Bar** oben
-- **Dark/Light Mode Toggle** mit LocalStorage
-- **Counter-Animation** (wiederholt sich beim Scrollen)
-- **Skills-Visualisierung** mit animierten Bars
-- **Timeline** für Werdegang
-- **Testimonials-Slider** mit Auto-Rotation
-- **Mobile Menu** mit Hamburger-Animation
-- **Preloader** mit VA-Logo
+- Statisches HTML, CSS und Vanilla JavaScript
+- Netlify Hosting mit Forms, Redirects und Security Headern
+- Responsive Dark-/Light-Theme ohne externe Fonts oder Tracking
+- Strukturierte Daten, Sitemap, Manifest und Social Preview
 
-### ✅ Content-Sektionen
-- Hero mit Particle-Animation
-- Über mich
-- Mein Ansatz
-- Leistungen (3 Service-Karten)
-- **Skills** (3 Kategorien mit Skill-Bars)
-- **Timeline** (Werdegang visualisiert)
-- Erfahrung (Counter-Animation)
-- Projekte/Referenzen
-- **Testimonials** (3 Kundenstimmen mit Slider)
-- Blog
-- Downloads
-- Kontakt
+## Lokal starten
 
-### ✅ Technical Excellence
-- **PWA-Ready** (manifest.json)
-- **Cookie-Banner** (DSGVO-konform)
-- **Security Headers** (.htaccess)
-- **404 Error Page** (branded)
-- **HTTPS Redirect**
-- **Mobile-First Design**
-
-## 📁 Projektstruktur
-
-```
-vuralavci/
-├── index.html              # Hauptseite (erweitert)
-├── impressum.html          # Impressum
-├── datenschutz.html        # Datenschutz
-├── 404.html               # Error Page
-├── styles.css             # Alle Styles (erweitert)
-├── script.js              # JavaScript (erweitert)
-├── manifest.json          # PWA Manifest
-├── sitemap.xml            # SEO Sitemap
-├── robots.txt             # Crawler Rules
-├── .htaccess              # Server Config
-├── js/
-│   └── particles.js       # Netzwerk-Animation
-├── images/
-│   ├── integration.svg
-│   ├── architecture.svg
-│   ├── development.svg
-│   ├── project-1.jpg
-│   ├── project-2.jpg
-│   ├── project-3.jpg
-│   ├── vural-avci-avatar.jpg
-│   ├── icon-192x192.png
-│   ├── icon-512x512.png
-│   └── og-image.jpg       # ⚠️ BITTE ERSTELLEN
-├── docs/
-│   ├── profile_vural_avci.pdf
-│   └── projects_vural_avci.pdf
-├── favicon-16x16.png
-├── favicon-32x32.png
-└── apple-touch-icon.png
+```powershell
+python -m http.server 8765 --bind 127.0.0.1
 ```
 
-## � WAS SIE NOCH TUN MÜSSEN
+Danach `http://127.0.0.1:8765/` öffnen.
 
-### 1. **Bilder ersetzen** (WICHTIG!)
+## Checks
 
-#### Avatar
-- Ersetzen Sie `images/vural-avci-avatar.jpg` mit Ihrem **echten Foto**
-- Empfohlen: 400x400px, WebP oder JPG
-
-#### Projekt-Bilder
-- Ersetzen Sie `images/project-1.jpg` mit echtem Projekt-Logo
-- Ersetzen Sie `images/project-2.jpg` mit echtem Projekt-Logo  
-- Ersetzen Sie `images/project-3.jpg` mit echtem Projekt-Logo
-- Empfohlen: 800x600px, WebP oder JPG
-
-#### Open Graph Image
-- Erstellen Sie `images/og-image.jpg` für Social Media Shares
-- Größe: 1200x630px
-- Zeigt Ihr Gesicht + Logo + Slogan
-
-#### Icons (Optional - bereits Platzhalter vorhanden)
-- Konvertieren Sie die SVG-Icons zu echten PNG:
-  - `favicon-16x16.png`
-  - `favicon-32x32.png`
-  - `apple-touch-icon.png`
-  - `images/icon-192x192.png`
-  - `images/icon-512x512.png`
-
-### 2. **Inhalte anpassen**
-
-#### Impressum (`impressum.html`)
-```html
-Zeile 19-25: Ihre vollständigen Kontaktdaten eintragen
-- Name, Adresse, PLZ, Ort
-- E-Mail, Telefon
-- USt-IdNr (falls vorhanden)
+```powershell
+npm run check
+git diff --check
 ```
 
-#### Timeline (`index.html` - Zeile 310-360)
-- Passen Sie die Jahreszahlen an Ihre echte Karriere an
-- Aktualisieren Sie Jobtitel und Beschreibungen
-- Fügen Sie ggf. mehr Timeline-Items hinzu
+Vor einer Veröffentlichung zusätzlich Desktop und Mobile, Navigation,
+Formularvalidierung, rechtliche Seiten, Kundenlogos und alle lokalen Assets
+visuell prüfen.
 
-#### Testimonials (`index.html` - Zeile 440-510)
-- Ersetzen Sie die 3 Beispiel-Testimonials mit **echten Kundenstimmen**
-- Oder entfernen Sie die Sektion, wenn noch keine vorhanden
+## Deployment
 
-#### Skills-Prozente (`index.html` - Zeile 190-290)
-- Passen Sie die Prozentzahlen (`data-progress="95"`) an Ihr Können an
-
-### 3. **PDF-Dokumente erstellen**
-
-Erstellen Sie folgende PDFs und speichern Sie sie im `docs/` Ordner:
-
-1. **`profile_vural_avci.pdf`**
-   - Profil-Onepager (1 Seite)
-   - Ihr Foto, Skills, Erfahrung, Kontakt
-
-2. **`projects_vural_avci.pdf`**
-   - Projektübersicht (2-3 Seiten)
-   - Beschreibung Ihrer Top-Projekte mit Technologien
-
-### 4. **Domain & Hosting einrichten**
-
-Wenn Sie die Domain `vuralavci.de` nutzen möchten:
-
-1. Domain registrieren bei z.B. IONOS, Strato, oder Namecheap
-2. Hosting mit PHP & .htaccess Support buchen
-3. Alle Dateien via FTP hochladen
-4. SSL-Zertifikat aktivieren (Let's Encrypt - meist kostenlos)
-
-#### DNS-Einstellungen:
-```
-A-Record: @ -> Ihre Server-IP
-CNAME: www -> vuralavci.de
-```
-
-### 5. **URLs aktualisieren**
-
-Suchen und ersetzen Sie in allen Dateien:
-- `https://vuralavci.de/` mit Ihrer echten Domain
-- Oder lassen Sie es, wenn die Domain stimmt
-
-Betroffene Dateien:
-- `index.html` (Meta-Tags)
-- `sitemap.xml`
-- `.htaccess`
-
-### 6. **Contact Form Backend** (Optional)
-
-Das Kontaktformular funktioniert derzeit nur mit JavaScript (Console-Log).
-
-**Optionen für echte E-Mail-Funktionalität:**
-
-#### A) FormSpree (Einfachste Lösung - kostenlos)
-```html
-<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-```
-
-#### B) PHP-Script (falls PHP auf Server)
-Erstellen Sie `contact.php`:
-```php
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = strip_tags(trim($_POST["name"]));
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $subject = strip_tags(trim($_POST["subject"]));
-    $message = trim($_POST["message"]);
-    
-    $to = "ihre@email.de";
-    $email_subject = "Kontakt von: $name";
-    $email_body = "Name: $name\nEmail: $email\nBetreff: $subject\n\nNachricht:\n$message";
-    $headers = "From: $email\r\n";
-    
-    mail($to, $email_subject, $email_body, $headers);
-}
-?>
-```
-
-### 7. **Analytics einrichten** (Optional)
-
-Empfehlung: **Plausible Analytics** (DSGVO-konform, cookieless)
-- Konto erstellen auf plausible.io
-- Script einbinden in `index.html` vor `</head>`
-
-### 8. **Testing**
-
-Nach dem Upload testen Sie:
-
-✅ **Lighthouse Score** (Chrome DevTools)
-- Ziel: 90+ in allen Kategorien
-
-✅ **Mobile-Ansicht**
-- Alle Breakpoints testen
-
-✅ **Alle Links**
-- Navigation, Footer-Links, Downloads
-
-✅ **Formulare**
-- Kontaktformular, Cookie-Banner
-
-✅ **Cross-Browser**
-- Chrome, Firefox, Safari, Edge
-
-### 9. **Performance-Check**
-
-Tools zum Testen:
-- Google PageSpeed Insights
-- GTmetrix
-- WebPageTest
-
-Ziel: **90+ Score** überall!
-
-## 🛠️ Entwicklung lokal starten
-
-```bash
-# Mit Python
-python -m http.server 8000
-
-# Mit Node.js (npx)
-npx http-server
-
-# Mit PHP
-php -S localhost:8000
-```
-
-Dann öffnen: `http://localhost:8000`
-
-## 📊 Features-Checkliste
-
-- [x] Netzwerk-Particle-Animation
-- [x] Scroll-Progress-Bar
-- [x] Dark/Light Mode
-- [x] Skills-Visualisierung
-- [x] Timeline
-- [x] Testimonials-Slider
-- [x] Mobile Menu
-- [x] Preloader
-- [x] Cookie-Banner
-- [x] SEO Meta-Tags
-- [x] Structured Data
-- [x] PWA Manifest
-- [x] 404 Page
-- [x] Security Headers
-- [ ] Eigene Bilder einfügen ⚠️
-- [ ] Impressum vervollständigen ⚠️
-- [ ] Timeline anpassen ⚠️
-- [ ] Echte Testimonials ⚠️
-- [ ] PDFs erstellen ⚠️
-- [ ] Contact Form Backend ⚠️
-- [ ] Domain & Hosting ⚠️
-- [ ] Analytics (optional)
-
-## � Farbpalette
-
-```css
---primary-color: #00d4ff (Cyan)
---accent-cyan: #00ffff (Hell-Cyan)
---dark-color: #0a0e27 (Navy)
---dark-blue: #141b3d (Dunkelblau)
---network-blue: #2d4a8e (Tech-Blau)
-```
-
-## 📞 Support
-
-Bei Fragen zur Website-Implementierung:
-- Prüfen Sie die Browser-Konsole auf Fehler
-- Testen Sie mit `Ctrl + Shift + I` (DevTools)
-- Lighthouse-Report erstellen für Performance-Tipps
-
----
-
-## 🚀 Die Website ist JETZT produktionsreif!
-
-**Nächste Schritte:**
-1. Bilder austauschen
-2. Impressum vervollständigen
-3. PDFs hochladen
-4. Auf Server hochladen
-5. Domain konfigurieren
-6. Live gehen! 🎉
-
-© 2025 Vural Avci - SAP Integration & Fullstack Solutions
-
-#   w e b s e i t e 
- 
- 
+Netlify veröffentlicht den Repository-Root. Der produktive Stand wird über
+`main` ausgeliefert. CSS und JavaScript werden wegen ihrer stabilen Dateinamen
+bei jedem Aufruf revalidiert; nur die unveränderten Kundenlogos werden dauerhaft
+immutable gecacht.
