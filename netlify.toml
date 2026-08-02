@@ -75,6 +75,12 @@
     Content-Type = "image/svg+xml"
 
 [[headers]]
+  for = "/images/vural-avci-logo.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+    Content-Type = "image/png"
+
+[[headers]]
   for = "/manifest.json"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"

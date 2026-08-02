@@ -11,6 +11,12 @@
   "orientation": "portrait-primary",
   "icons": [
     {
+      "src": "/images/vural-avci-logo.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",

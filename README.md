@@ -12,6 +12,8 @@ Produktive Portfolio-Website für [vuralavci.de](https://vuralavci.de/).
 Die Projektdarstellungen sind bewusst anonymisiert. Die bestehenden Kundenlogos
 unter `images/logos/` sind freigegebene Bestandsassets und dürfen bei Änderungen
 nicht ersetzt, umbenannt oder einzelnen anonymisierten Cases zugeordnet werden.
+Das primäre Markenlogo liegt unverändert unter `images/vural-avci-logo.png` und
+wird im Header, Footer sowie in den Marken-Metadaten der Website verwendet.
 
 ## Technischer Aufbau
 
@@ -55,6 +57,6 @@ visuell prüfen.
 ## Deployment
 
 Netlify veröffentlicht den Repository-Root. Der produktive Stand wird über
-`main` ausgeliefert. CSS und JavaScript werden wegen ihrer stabilen Dateinamen
-bei jedem Aufruf revalidiert; nur die unveränderten Kundenlogos werden dauerhaft
-immutable gecacht.
+`main` ausgeliefert. CSS, JavaScript und das Markenlogo werden wegen ihrer
+stabilen Dateinamen bei jedem Aufruf revalidiert; nur die unveränderten
+Kundenlogos werden dauerhaft immutable gecacht.
