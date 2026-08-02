@@ -50,7 +50,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
     <title>Vural Avci | SAP BTP AI &amp; Full-Stack Solution Architect</title>
-    <link rel="stylesheet" href="/styles.css?v=20260802" />
+    <link rel="stylesheet" href="/styles.css?v=20260802-2" />
 
     <script type="application/ld+json">
       {
@@ -89,6 +89,13 @@
         "name": "Vural Avci - SAP BTP AI & Full-Stack Architecture",
         "url": "https://vuralavci.de/",
         "email": "kontakt@vuralavci.de",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Alois-Schraufstetter-Str. 14",
+          "postalCode": "94469",
+          "addressLocality": "Deggendorf",
+          "addressCountry": "DE"
+        },
         "areaServed": ["DE", "AT", "CH"],
         "serviceType": [
           "SAP BTP AI Architecture",
@@ -551,24 +558,27 @@
             <div class="form-row">
               <div class="field">
                 <label for="name">Name</label>
-                <input id="name" name="name" type="text" autocomplete="name" required />
+                <input id="name" name="name" type="text" autocomplete="name" aria-describedby="name-error" required />
                 <span class="field-error" id="name-error"></span>
               </div>
               <div class="field">
                 <label for="email">E-Mail</label>
-                <input id="email" name="email" type="email" autocomplete="email" required />
+                <input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-error" required />
                 <span class="field-error" id="email-error"></span>
               </div>
             </div>
 
             <div class="field">
               <label for="interest">Worum geht es?</label>
-              <select id="interest" name="interest" required>
-                <option value="">Bitte auswählen</option>
+              <select id="interest" name="interest" aria-describedby="interest-error" required>
+                <option value="" disabled selected>Bitte auswählen</option>
+                <option value="project">Projektanfrage / Verfügbarkeit</option>
                 <option value="btp-ai">BTP AI / Generative AI</option>
                 <option value="architecture">BTP Solution Architecture</option>
                 <option value="full-stack">CAP / RAP / UI5 Full-Stack</option>
                 <option value="integration">Integration Suite / Eventing</option>
+                <option value="profile">Projektprofil / Referenzen</option>
+                <option value="privacy">Datenschutz / Betroffenenrechte</option>
                 <option value="other">Anderes Thema</option>
               </select>
               <span class="field-error" id="interest-error"></span>
@@ -576,15 +586,15 @@
 
             <div class="field">
               <label for="message">Projektkontext</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea id="message" name="message" rows="5" aria-describedby="message-error" required></textarea>
               <span class="field-error" id="message-error"></span>
             </div>
 
             <label class="consent" for="privacy">
-              <input id="privacy" name="privacy" type="checkbox" required />
+              <input id="privacy" name="privacy" type="checkbox" aria-describedby="privacy-error" required />
               <span>
-                Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen
-                und stimme der Verarbeitung meiner Angaben zur Kontaktaufnahme zu.
+                Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> zur
+                Verarbeitung meiner Angaben zur Kenntnis genommen.
               </span>
             </label>
             <span class="field-error consent-error" id="privacy-error"></span>
@@ -616,6 +626,6 @@
       </div>
     </footer>
 
-    <script src="/script.js?v=20260802" defer></script>
+    <script src="/script.js?v=20260802-2" defer></script>
   </body>
 </html>

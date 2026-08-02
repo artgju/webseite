@@ -39,6 +39,19 @@ Vor einer Veröffentlichung zusätzlich Desktop und Mobile, Navigation,
 Formularvalidierung, rechtliche Seiten, Kundenlogos und alle lokalen Assets
 visuell prüfen.
 
+## Datenschutz im Betrieb
+
+- Verifizierte und als Spam markierte Netlify-Forms-Einsendungen regelmäßig
+  prüfen und grundsätzlich spätestens sechs Monate nach Abschluss der Anfrage
+  löschen, sofern keine gesetzlichen Aufbewahrungsgründe entgegenstehen.
+- Benachrichtigungen und Webhooks im Netlify-Dashboard bei Änderungen als
+  zusätzliche Empfänger in der Datenschutzerklärung dokumentieren.
+- Die Auftragsverarbeitungsregelungen für Netlify und IONOS im jeweiligen
+  Kundenkonto aktuell halten.
+- Vor dem Einbau von Analytics, externen Medien, Schriftarten oder weiteren
+  Formularanbietern die Datenschutzerklärung und eine mögliche
+  Einwilligungspflicht neu prüfen.
+
 ## Deployment
 
 Netlify veröffentlicht den Repository-Root. Der produktive Stand wird über

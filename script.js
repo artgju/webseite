@@ -159,7 +159,7 @@
     email: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
     interest: "Bitte wählen Sie ein Thema aus.",
     message: "Bitte beschreiben Sie kurz Ihren Projektkontext.",
-    privacy: "Bitte bestätigen Sie die Datenschutzerklärung.",
+    privacy: "Bitte bestätigen Sie, dass Sie die Datenschutzerklärung zur Kenntnis genommen haben.",
   };
 
   const setFieldError = (key, message = "") => {

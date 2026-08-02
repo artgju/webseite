@@ -1,6 +1,7 @@
 /* Vural Avci — SAP BTP AI & Full-Stack Architecture */
 
 :root {
+  color-scheme: dark;
   --bg: #071426;
   --bg-deep: #040d19;
   --surface: #0b1b30;
@@ -18,6 +19,11 @@
   --accent-soft: rgba(36, 215, 178, 0.12);
   --danger: #ff7c8d;
   --success: #43dfb5;
+  --control-border: #5b7794;
+  --focus-ring: #24d7b2;
+  --focus-shadow: rgba(36, 215, 178, 0.18);
+  --option-bg: #0b1b30;
+  --option-text: #f5f8fc;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
   --shadow-soft: 0 14px 44px rgba(0, 0, 0, 0.18);
   --radius-sm: 0.7rem;
@@ -31,6 +37,7 @@
 }
 
 html[data-theme="light"] {
+  color-scheme: light;
   --bg: #f3f7fa;
   --bg-deep: #e8eff5;
   --surface: #ffffff;
@@ -48,6 +55,11 @@ html[data-theme="light"] {
   --accent-soft: rgba(0, 127, 107, 0.1);
   --danger: #b4233c;
   --success: #047857;
+  --control-border: #5b7188;
+  --focus-ring: #006b5b;
+  --focus-shadow: rgba(0, 107, 91, 0.2);
+  --option-bg: #ffffff;
+  --option-text: #0b2037;
   --shadow: 0 24px 80px rgba(20, 55, 85, 0.12);
   --shadow-soft: 0 14px 44px rgba(20, 55, 85, 0.1);
 }
@@ -112,7 +124,7 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -1247,7 +1259,7 @@ html[data-theme="light"] .architecture-node {
 .field select,
 .field textarea {
   width: 100%;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--control-border);
   border-radius: 0.7rem;
   background: var(--surface-soft);
   color: var(--text);
@@ -1269,6 +1281,7 @@ html[data-theme="light"] .architecture-node {
 
 .field select {
   appearance: none;
+  padding-right: 2.5rem;
   background-image:
     linear-gradient(45deg, transparent 50%, var(--text-soft) 50%),
     linear-gradient(135deg, var(--text-soft) 50%, transparent 50%);
@@ -1277,12 +1290,28 @@ html[data-theme="light"] .architecture-node {
   background-size: 0.32rem 0.32rem;
 }
 
+.field select option {
+  background-color: var(--option-bg);
+  color: var(--option-text);
+}
+
+.field select:required:invalid {
+  color: var(--text-soft);
+}
+
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: var(--accent);
+  border-color: var(--focus-ring);
   background-color: var(--accent-soft);
-  box-shadow: 0 0 0 3px rgba(36, 215, 178, 0.12);
+  box-shadow: 0 0 0 3px var(--focus-shadow);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .field [aria-invalid="true"] {
@@ -1294,7 +1323,7 @@ html[data-theme="light"] .architecture-node {
   min-height: 1.2rem;
   margin-top: 0.28rem;
   color: var(--danger);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
 }
 
 .consent {
@@ -1303,7 +1332,7 @@ html[data-theme="light"] .architecture-node {
   align-items: start;
   gap: 0.7rem;
   color: var(--text-faint);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   line-height: 1.55;
 }
 
@@ -1311,7 +1340,12 @@ html[data-theme="light"] .architecture-node {
   width: 1.05rem;
   height: 1.05rem;
   margin: 0.16rem 0 0;
-  accent-color: var(--accent);
+  accent-color: var(--focus-ring);
+}
+
+.consent input[aria-invalid="true"] {
+  outline: 3px solid var(--danger);
+  outline-offset: 2px;
 }
 
 .consent a {
@@ -1470,6 +1504,138 @@ html[data-theme="light"] .architecture-node {
   color: var(--accent-strong);
 }
 
+/* Legal pages */
+.legal-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.legal-nav a {
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.legal-nav a:hover,
+.legal-nav a[aria-current="page"] {
+  color: var(--accent-strong);
+}
+
+.legal-main {
+  position: relative;
+  isolation: isolate;
+}
+
+.legal-section {
+  padding-top: clamp(5rem, 8vw, 8rem);
+}
+
+.legal-shell {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.68fr) minmax(0, 1.32fr);
+  align-items: start;
+  gap: clamp(3rem, 7vw, 7rem);
+}
+
+.legal-intro {
+  position: sticky;
+  top: calc(var(--header-height) + 2.5rem);
+}
+
+.legal-intro h1 {
+  max-width: 9ch;
+  margin: 0.8rem 0 1.3rem;
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  hyphens: auto;
+  letter-spacing: -0.06em;
+  line-height: 0.94;
+  overflow-wrap: anywhere;
+}
+
+.legal-intro > p:not(.eyebrow) {
+  max-width: 32rem;
+  color: var(--text-soft);
+}
+
+.legal-updated {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--text-faint) !important;
+  font-family: var(--font-mono);
+  font-size: 0.72rem !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.legal-content {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+.legal-content section {
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+}
+
+.legal-content section + section {
+  border-top: 1px solid var(--line);
+}
+
+.legal-content h2,
+.privacy-content h2 {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  letter-spacing: -0.025em;
+}
+
+.legal-content p,
+.legal-content li,
+.legal-content address {
+  color: var(--text-soft);
+  font-size: 0.94rem;
+}
+
+.legal-content p:last-child,
+.legal-content ul:last-child {
+  margin-bottom: 0;
+}
+
+.legal-content ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 1rem 0;
+  padding-left: 1.25rem;
+}
+
+.legal-content address {
+  font-style: normal;
+}
+
+.legal-content a {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent-strong) 45%, transparent);
+  text-underline-offset: 3px;
+}
+
+.legal-content code {
+  padding: 0.12rem 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+  background: var(--surface-strong);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+}
+
+.legal-footer {
+  margin-top: 0;
+}
+
 /* Responsive */
 @media (max-width: 1080px) {
   .hero-grid {
@@ -1478,6 +1644,19 @@ html[data-theme="light"] .architecture-node {
 
   .hero-copy {
     max-width: 54rem;
+  }
+
+  .legal-shell {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .legal-intro {
+    position: static;
+  }
+
+  .legal-intro h1 {
+    max-width: none;
   }
 
   .architecture-visual {
@@ -1598,6 +1777,13 @@ html[data-theme="light"] .architecture-node {
 @media (max-width: 560px) {
   .section-pad { padding: 4.7rem 0; }
 
+  .legal-nav { gap: 0.7rem; }
+  .legal-nav a { font-size: 0.68rem; }
+  .legal-section { padding-top: 4rem; }
+  .legal-intro h1 { font-size: clamp(2.9rem, 14vw, 4rem); }
+  .legal-content { border-radius: var(--radius); }
+  .legal-content section { padding: 1.35rem; }
+
   .hero { padding-top: 3.2rem; }
 
   .hero h1 { font-size: clamp(2.85rem, 14.6vw, 4.6rem); }
@@ -1660,6 +1846,13 @@ html[data-theme="light"] .architecture-node {
   .motion-ready .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .field select {
+    appearance: auto;
+    background-image: none;
   }
 }
 
